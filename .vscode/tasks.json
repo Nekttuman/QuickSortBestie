@@ -1,0 +1,70 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Configure CMake with Clang & Ninja",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-G",
+                "Ninja",
+                "-DCMAKE_CXX_COMPILER=clang++",
+                "-DCMAKE_CXX_STANDARD=23",
+                "-DCMAKE_BUILD_TYPE=Debug",
+                "-DENABLE_MOVE_SEMANTICS=ON",
+                "-DENABLE_MEDIAN_OF_THREE=ON",
+                "-D${cwd}ENABLE_INSERTION_SORT=ON",
+                ".."
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build" // Работаем в папке build
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Configures CMake with Clang, C++23 and Ninja"
+        },
+        {
+            "label": "Build with CMake",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "."
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+            "dependsOn": [
+                "Configure CMake with Clang & Ninja"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Run My App",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "build\\QuickSort.exe"
+            ],
+            "dependsOn": [
+                "Build with CMake"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
